@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+
+a {
+    color:white;
+    text-decoration:none;
+}
+
+
+#child, #child2, #child3, #child4{
+	position:absolute;
+	display:none;
+    top:200px;
+	z-index:9;
+	color:red;
+}
+
+#child:target, #child2:target, #child3:target, #child4:target {
+
+display:block;
+}
+
+
+table.clickme td {
+    cursor: pointer;
+}
+
+
+table.xsandos tr {    //name of class for chooser
+    cursor: pointer;
+}
+
+table.coolTable td {
+    background-color:purple;
+    color:green;
+}
+
+table.coolTable td:hover {
+    background-color:green;
+    color:green;
+}
+
+td a {
+    display:block;
+    width:100%;
+}
+
+
+</style>
+
+
+ <script>
+/*
+
+ Blake Southwood
+ Tested myself coding in JavaScript October 3rd, 2019
+ Put together simple interactive mouse driven tic tac toe.
+
+
+*/
+
+
+
+
+function xmas(num){
+  var choice = mouse[0];
+
+   switch(num){
+   
+   case "1":
+      square_input('1',choice);
+       break;
+
+    case "2":
+      square_input('2',choice);
+       break;
+
+case "3":
+ square_input('3',choice);
+ break;
+
+case "4":
+ square_input('4',choice);
+ break;
+
+ case "5":
+ square_input('5',choice);
+ break;
+
+ case "6":
+ square_input('6',choice);
+ break;
+
+ case "7":
+ square_input('7',choice);
+ break;
+
+ case "8":
+ square_input('8',choice);
+ break;
+
+ case "9":
+ square_input('9',choice);
+ break;
+
+
+
+default:
+alert("none matched sorry");
+
+
+}//end switch
+} //end func
+
+
+
+
+
+
+
+mouse = ["-"];            //array with one value  either X or O
+threesquares = [false];   //means three in a row not true 
+whichdirection = ["0"];  //across down diagonal
+
+
+function choose(y){
+ eval("mouse[0] =  y");
+ dynamicplayerchooser()
+
+}
+
+function trythis(){
+   location.reload();
+}
+
+function new_game(){
+   trythis();
+   loader(); //testing
+   choose('X'); //by default X is chosen to start with
+ }
+
+
+ function main(){
+   loader();     //testing
+   choose('X');  //by default X is chosen to start with
+ }
+
+ //1 2 3
+ //4 5 6
+ //7 8 9
+
+ //three across all x's or o's
+ //if 1 == true and 2 == true  and 3 == true tic tac toe
+ //if 4 == true and 5 == true and 6 == true tic tac toe
+ //if 7 == true and 8 == true and 9 == true tic tac toe
+
+ //three//down
+ //if 1 == true and 4 == true  and 7 == true tic tac toe
+ //if 2 == true and 5 == true and 8 == true tic tac toe
+ //if 3 == true and 6 == true and 9 == true tic tac toe
+
+ //diagonal three
+ //if 1 == true and 5== true  and 9 == true tic tac toe
+ //if 3 == true and 5 == true and 7 == true tic tac toe
+
+
+
+
+function loader(){
+
+ var b = " <table bgcolor = white width = 200 border=0>"
+     b += "<tr><td>" + "  " + "</td></tr></table>"   //this will have
+      document.getElementById('banner').innerHTML = b
+
+square1 = ["-"];
+square2 = ["-"];
+square3 = ["-"];
+
+square4 = ["-"];
+square5 = ["-"];
+square6 = ["-"];
+
+square7 = ["-"];
+square8 = ["-"];
+square9 = ["-"];
+print_board()
+}
+
+
+
+
+
+
+//this needs to be called after each move to test for tic tac toe
+function look(){
+  
+  for(var x = 0;x< 1;x++){
+
+  three_across();
+  if (threesquares[0] == true && whichdirection[0] == "across"){
+ 
+      break;
+   }
+   
+  three_down();
+  if (threesquares[0] == true && whichdirection[0] == "down"){
+  
+      break;
+   }
+   
+  three_diagonal();
+   if (threesquares[0] == true && whichdirection[0] == "diagonal"){
+    
+      break;
+   }
+  } //end loop
+} //end look
+
+
+var result = false
+
+
+
+
+
+
+// THREE ACROSS
+function three_across(){
+
+if (square1[0] == "X" &&  square2[0] == "X" && square3[0] == "X" ) {
+ ////alert("three across  1, 2, 3");
+ var b = " <table bgcolor = yellow width = 200 border=0>"
+     b += "<tr><td>" + " X wins  across  " + "</td></tr></table>"   
+  threesquares[0] = true;
+  whichdirection[0] = "across";
+ 
+     document.getElementById('banner').innerHTML = b
+
+}
+
+if (square1[0] == "O" &&  square2[0] == "O" && square3[0] == "O" ) {
+   threesquares[0] = true;
+   whichdirection[0] = 'across'
+
+   var b = " <table bgcolor = yellow width = 200 border=0>"
+     b += "<tr><td>" + " O wins across " + "</td></tr></table>"   
+
+  
+     document.getElementById('banner').innerHTML = b
+}
+
+
+if (square4[0] == "O" &&  square5[0] == "O" && square6[0] == "O" ) {
+   threesquares[0] = true;
+   whichdirection[0] = "across";
+  
+   var b = " <table bgcolor = yellow width = 200 border=0>"
+     b += "<tr><td>" + " O wins across  " + "</td></tr></table>"   
+  
+ 
+     document.getElementById('banner').innerHTML = b
+}
+if (square4[0] == "X" &&  square5[0] == "X" && square6[0] == "X" ) {
+   threesquares[0] = true;
+   whichdirection[0] = "across"
+ 
+    var b = " <table bgcolor = yellow width = 200 border=0>"
+     b += "<tr><td>" + " X wins across  " + "</td></tr></table>"   //this will hae for each if below
+ 
+ 
+     document.getElementById('banner').innerHTML = b
+}
+
+if (square7[0] == "O" &&  square8[0] == "O" && square9[0] == "O" ) {
+   threesquares[0] = true;
+   whichdirection[0] = "across";
+ var b = " <table bgcolor = yellow width = 200 border=0>"
+     b += "<tr><td>" + " O wins  across " + "</td></tr></table>"   //thach if below
+
+   
+     document.getElementById('banner').innerHTML = b
+}
+if (square7[0] == "X" &&  square8[0] == "X" && square9[0] == "X" ) {
+   threesquares[0] = true;
+   whichdirection[0] = "across"
+  var b = " <table bgcolor = yellow width = 200 border=0>"
+     b += "<tr><td>" + " X wins 3 across 7,8,9 " + "</td></tr></table>"   //tho be for elow
+  
+  
+     document.getElementById('banner').innerHTML = b
+}
+} //end function
+
+
+
+
+
+
+
+
+
+
+
+// THREE DOWN
+
+function three_down(){
+
+  if (square1[0] == "X" &&  square4[0] == "X" && square7[0] == "X" ) {
+    threesquares[0] = true;
+  whichdirection[0] = "down";
+  var b = " <table bgcolor = yellow width = 200 border=0>"
+     b += "<tr><td>" + " X wins  down  " + "</td></tr></table>"
+      document.getElementById('banner').innerHTML = b;
+   
+      return;
+  }
+
+  //if 1 and 4 and 7 == 0
+  if (square1[0] == "O" &&  square4[0] == "O" && square7[0] == "O" ) {
+     threesquares[0] = true;
+     whichdirection[0] = "down";
+  var b = " <table bgcolor = yellow width = 200 border=0>"
+      b += "<tr><td>" + " O wins  down  " + "</td></tr></table>"   
+      document.getElementById('banner').innerHTML = b
+      return;
+  } 
+
+
+if (square2[0] == "X" &&  square5[0] == "X" && square8[0] == "X" ) {
+ threesquares[0] = true;
+whichdirection[0] = "down";
+  var b = " <table bgcolor = yellow width = 200 border=0>"
+      b += "<tr><td>" + " X wins  down"  + "</td></tr></table>"   
+    
+
+     document.getElementById('banner').innerHTML = b
+      return
+}
+
+if (square2[0] == "O" &&  square5[0] == "O" && square8[0] == "O" ) {
+  threesquares[0] = true;
+  whichdirection[0] = "down";
+  var b = " <table bgcolor = yellow width = 200 border=0>"
+       b += "<tr><td>" + " O wins 3 down " + "</td></tr></table>"   
+       document.getElementById('banner').innerHTML = b
+     return
+}
+
+
+if (square3[0] == "X" &&  square6[0] == "X" && square9[0] == "X" ) {
+
+  threesquares[0] = true;
+  whichdirection[0] = "down";
+  var b = " <table bgcolor = yellow width = 200 border=0>"
+     b += "<tr><td>" + " X wins  down  " + "</td></tr></table>"   
+  
+
+     document.getElementById('banner').innerHTML = b
+     return;
+}
+if (square3[0] == "O" &&  square6[0] == "O" && square9[0] == "O" ) {
+
+  threesquares[0] = true;
+  whichdirection[0] = "down";
+  var b = " <table bgcolor = yellow width = 200 border=0>"
+     b += "<tr><td>" + " O wins  down  " + "</td></tr></table>"   
+     document.getElementById('banner').innerHTML = b
+     return;
+}
+} //end function
+
+
+
+
+
+
+
+
+
+
+
+
+
+//THREE DIAGONAL===============
+function three_diagonal(){
+
+  if (square1[0] == "X" &&  square5[0] == "X" && square9[0] == "X" ) {
+  threesquares[0] = true;
+  whichdirection[0] ="diagonal"
+    var b = " <table bgcolor = yellow width = 200 border=0>"
+       b += "<tr><td>" + " X wins  diagonal " + "</td></tr></table>"   
+       document.getElementById('banner').innerHTML = b
+  }
+  
+  
+  if (square1[0] == "O" &&  square5[0] == "O" && square9[0] == "O" ) {
+ threesquares[0] = true;
+ whichdirection[0] = "diagonal";
+    var b = " <table bgcolor = yellow width = 200 border=0>"
+       b += "<tr><td>" + " O wins  diagonal  " + "</td></tr></table>"   
+       document.getElementById('banner').innerHTML = b
+  }
+
+  if (square3[0] == "X" &&  square5[0] == "X" && square7[0] == "X" ) {
+      threesquares[0] = true;
+      whichdirection[0] = "diagonal";
+    var b = " <table bgcolor = yellow width = 200 border=0>"
+       b += "<tr><td>" + " X wins  diagonal  " + "</td></tr></table>"   
+       document.getElementById('banner').innerHTML = b
+  }
+  if (square3[0] == "O" &&  square5[0] == "O" && square7[0] == "O" ) {
+    threesquares[0] = true;
+    whichdirection[0] = "diagonal";
+    var b = " <table bgcolor = yellow width = 200 border=0>"
+       b += "<tr><td>" + " O wins  diagonal " + "</td></tr></table>"   
+       document.getElementById('banner').innerHTML = b
+  }
+
+} //end function
+
+
+
+
+
+
+
+
+function clear_board(){
+
+  square1 = ["-"];
+  square2 = ["-"];
+  square3 = ["-"];
+  square4 = ["-"];
+  square5 = ["-"];
+  square6 = ["-"];
+  square7 = ["-"];
+  square8 = ["-"];
+  square9 = ["-"];
+
+print_board();
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// square_input(number,user)
+
+
+function square_input(number,user){  //number 1 thru 9 and then , X or O number
+
+  if (number == '1' && user == 'X' ){
+ 
+   the_square1('X')
+ 
+ }
+ 
+ if (number == '1' && user == 'O' ){
+
+  the_square1('O')
+  
+}
+
+if (number == '2' && user == 'X' ){
+
+ the_square2('X')
+  
+}
+
+if (number == '2' && user == 'O' ){
+
+the_square2('O')
+ 
+}
+
+if (number == '3' && user == 'X' ){
+
+ the_square3('X')
+ 
+}
+
+if (number == '3' && user == 'O' ){
+
+the_square3('O')
+
+}
+
+if (number == '4' && user == 'X' ){
+
+ the_square4('X')
+ 
+}
+if (number == '4' && user == 'O' ){
+
+the_square4('O')
+
+}
+
+if (number == '5' && user == 'X' ){
+
+ the_square5('X')
+}
+if (number == '5' && user == 'O' ){
+
+the_square5('O')
+
+}
+
+if (number == '6' && user == 'X' ){
+
+ the_square6('X')
+}
+if (number == '6' && user == 'O' ){
+
+the_square6('O')
+
+}
+
+if (number == '7' && user == 'X' ){
+
+ the_square7('X')
+  
+}
+if (number == '7' && user == 'O' ){
+
+the_square7('O')
+ 
+}
+
+if (number == '8' && user == 'X' ){
+
+ the_square8('X')
+
+}
+if (number == '8' && user == 'O' ){
+
+the_square8('O')
+
+}
+
+if (number == '9' && user == 'X' ){
+
+ the_square9('X')
+
+}
+if (number == '9' && user == 'O' ){
+
+
+}
+
+print_board() 
+look()
+} //end function
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//button square 1 X or O    button square 2  X or O  button square 3 X or O
+
+
+function the_square1(z){  //enter X or 0
+if (square1[0] == "-"){
+    if(z == 'X' ){
+      square1[0] = "X"
+     
+    }
+    if ( z == 'O'){
+      square1[0] = "O"
+    
+    }
+
+}//end outer if
+print_board()
+look();
+}//end funciton
+
+
+
+function the_square2(z){  //enter X or 0
+if (square2[0] == "-"){
+    if(z == 'X' ){
+      square2[0] = "X"
+    }else{
+      square2[0] = "O"
+    }
+}//end outer if
+print_board()
+look();
+}//end funciton
+
+
+function the_square3(z){  //enter X or 0
+if (square3[0] == "-"){
+    if(z == 'X' ){
+      square3[0] = "X"
+    }else{
+      square3[0] = "O"
+    }
+}//end outer if
+print_board()
+look();
+}//end funciton
+
+
+
+
+
+function the_square4(z){  //enter X or 0
+if (square4[0] == "-"){
+    if(z == 'X' ){
+      square4[0] = "X"
+    }else{
+      square4[0] = "O"
+    }
+}//end outer if
+print_board()
+look();
+}//end funciton
+
+
+
+function the_square5(z){  //enter X or 0
+if (square5[0] == "-"){
+    if(z == 'X' ){
+      square5[0] = "X"
+    }else{
+      square5[0] = "O"
+    }
+}//end outer if
+print_board()
+look();
+}//end funciton
+
+
+
+function the_square6(z){  //enter X or 0
+if (square6[0] == "-"){
+    if(z == 'X' ){
+      square6[0] = "X"
+    }else{
+      square6[0] = "O"
+    }
+}//end outer if
+print_board()
+look();
+}//end funciton
+
+//================
+
+function the_square7(z){  //enter X or 0
+
+if (square7[0] == "-"){
+    if(z == 'X' ){
+      square7[0] = "X"
+    }else{
+      square7[0] = "O"
+    }
+}//end outer if
+print_board()
+look();
+}//end funciton
+
+
+
+function the_square8(z){  //enter X or 0
+if (square8[0] == "-"){
+    if(z == 'X' ){
+      square8[0] = "X"
+    }else{
+      square8[0] = "O"
+    }
+}//end outer if
+print_board()
+look();
+}//end funciton
+
+
+
+function the_square9(z){  //enter X or 0
+if (square9[0] == "-"){
+    if(z == 'X' ){
+      square9[0] = "X"
+    }else{
+      square9[0] = "O"
+    }
+}//end outer if
+print_board()
+look();
+}//end funciton
+
+
+//add this new feature to show the winning row with the highlight in green for each square
+//whether they are down, across, or diagonal
+
+
+
+//========================= print board ==============
+
+function print_board(){
+
+var a = " <table class = 'clickme' id='results' width = 200 border=1>"
+    a += "<tr>"
+
+    if (square1[0] == 'X'){
+    a += "<td  width='33%' class='td' onclick=\"xmas('1')\" style ='text-align:center' bgcolor = white>"
+    }
+     if (square1[0] == 'O'){
+    a += "<td width='33%' class='td' onclick=\"xmas('1')\" style ='text-align:center' bgcolor = white>"
+    }
+    if(square1[0] == '-'){
+     a += "<td width='33%' class='td' onclick=\"xmas('1')\"style ='text-align:center' bgcolor = white>"
+    }
+     a +=  square1[0] + "</td>"
+     
+     
+     
+   //====
+    if (square2[0] == 'X'){
+    a += "<td width='33%' class='td' onclick=\"xmas('2')\" style ='text-align:center' bgcolor = white>"
+    }
+     if (square2[0] == 'O'){
+     a += "<td width='33%' class='td' onclick=\"xmas('2')\" style ='text-align:center' bgcolor = white>"
+    }
+     if (square2[0] == '-'){
+      a += "<td width='33%'  class='td' onclick=\"xmas('2')\"style ='text-align:center' bgcolor = white>"
+    }
+     a +=  square2[0] + "</td>"
+
+
+   //========
+     if (square3[0] == 'X'){
+    a += "<td width='33%'  class='td' onclick=\"xmas('3')\" style ='text-align:center' bgcolor = white>"
+    }
+     if (square3[0] == 'O'){
+    a += "<td width='33%'  class='td' onclick=\"xmas('3')\" style ='text-align:center' bgcolor = white>"
+    }
+     if (square3[0] == '-'){
+    a += "<td width='33%'  class='td' onclick=\"xmas('3')\"style ='text-align:center' bgcolor = white>"
+    }
+     a +=  square3[0] + "</td></tr>"
+
+//=========
+  //========
+  a += "<tr>"
+     if (square4[0] == 'X'){
+    a += "<td width='33%'  class='td' onclick=\"xmas('4')\" style ='text-align:center' bgcolor = white>"
+    }
+     if (square4[0] == 'O'){
+     a += "<td width='33%'  class='td' onclick=\"xmas('4')\" style ='text-align:center' bgcolor = white>"
+    }
+     if (square4[0] == '-'){
+    a += "<td width='33%'  class='td' onclick=\"xmas('4')\" style ='text-align:center' bgcolor = white>"
+    }
+     a +=  square4[0] + "</td>"
+     
+//============
+  //========
+     if (square5[0] == 'X'){
+     a += "<td width='33%'  class='td' onclick=\"xmas('5')\" style ='text-align:center' bgcolor = white>"
+    }
+     if (square5[0] == 'O'){
+     a += "<td width='33%'  class='td' onclick=\"xmas('5')\" style ='text-align:center' bgcolor = white>"
+    }
+     if (square5[0] == '-'){
+    a += "<td width='33%'  class='td' onclick=\"xmas('5')\" style ='text-align:center' bgcolor = white>"
+    }
+     a +=  square5[0] + "</td>"
+     
+    //========
+  
+    if (square6[0] == 'X'){
+    a += "<td width='33%'  class='td' onclick=\"xmas('6')\" style ='text-align:center' bgcolor = white>"
+    }
+     if (square6[0] == 'O'){
+     a += "<td width='33%'  class='td' onclick=\"xmas('6')\" style ='text-align:center' bgcolor = white>"
+    }
+     if (square6[0] == '-'){
+     a += "<td width='33%'  class='td' onclick=\"xmas('6')\" style ='text-align:center' bgcolor = white>"
+    }
+     a +=  square6[0] + "</td></tr>"
+     
+     //========
+     
+     if (square7[0] == 'X'){
+    a += "<tr><td width='33%'  class='td' onclick=\"xmas('7')\" style ='text-align:center' bgcolor = white>"
+    }
+     if (square7[0] == 'O'){
+   a += "<td width='33%'  class='td' onclick=\"xmas('7')\" style ='text-align:center' bgcolor = white>"
+    }
+     if (square7[0] == '-'){
+     a += "<td width='33%'  class='td' onclick=\"xmas('7')\" style ='text-align:center' bgcolor = white>"
+    }
+     a +=  square7[0] + "</td>"
+     
+      ///
+      
+       if (square8[0] == 'X'){
+    a += "<td width='33%'  class='td' onclick=\"xmas('8')\" style ='text-align:center' bgcolor = white>"
+    }
+     if (square8[0] == 'O'){
+     a += "<td width='33%'  class='td' onclick=\"xmas('8')\" style ='text-align:center' bgcolor = white>"
+    }
+     if (square8[0] == '-'){
+     a += "<td width='33%'  class='td' onclick=\"xmas('8')\" style ='text-align:center' bgcolor = white>"
+    }
+     a +=  square8[0] + "</td>"
+     
+    //=========
+    
+     if (square9[0] == 'X'){
+    a += "<td width='33%'  class='td' onclick=\"xmas('9')\" style ='text-align:center' bgcolor = white>"
+    }
+     if (square9[0] == 'O'){
+    a += "<td width='33%'  class='td' onclick=\"xmas('9')\" style ='text-align:center' bgcolor = white>"
+    }
+     if (square9[0] == '-'){
+     a += "<td width='33%'  class='td' onclick=\"xmas('9')\" style ='text-align:center' bgcolor = white>"
+    }
+     a +=  square9[0] + "</td></tr>"
+     
+     
+      
+     
+
+    a += "</table>"
+    document.getElementById('log').innerHTML = a
+
+   } //end function
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//======================= dyanmic player chooser ===========
+
+function dynamicplayerchooser(){
+
+ var choice = mouse[0];
+
+
+   var  a="<table border = 1  id='choosem' border=1 bgcolor=white width = 120>"
+        a += "<tr>"
+  
+    if (choice == 'X' ){
+       a += "<td class = 'xsandos' style ='text-align:center' bgcolor = palegreen "
+    }
+    if (choice != 'X'){
+       a += "<td class = 'xsandos' style ='text-align:center' bgcolor = white "   
+     } //end if
+
+    a += "class='td' "
+    a += " onclick=\"choose('X')\">X</td>"
+
+
+     if (choice == 'O'){
+       a += "<td class = 'xsandos' style ='text-align:center' bgcolor = palegreen "
+     }
+     if(choice != 'O'){
+    a += "<td class = 'xsandos' style ='text-align:center'  bgcolor = white  "  
+     } //end if
+
+    a += "class='td' "
+    a += " onclick=\"choose('O')\">O</td></tr>"
+    a += "</table>"
+
+     document.getElementById('chooseXP').innerHTML = a
+}
+
+
+function buildplayerchooserxando(){
+     var b = " "
+         b += "<table border = 1 class = 'xsandos' id='choosem' border=1 bgcolor=white width = 120>"
+         b += "<tr>"
+         b += "<td tyle ='text-align:center' class='td' onclick='choose('X')'>X</td>"
+         b += "<td tyle ='text-align:center' class='td' onclick='choose('O')'>O</td>"
+         b += "</tr>"
+         b += "</table>"
+
+          document.getElementById('chooseXP').innerHTML = b
+
+}
+
+</script>
+
+</head>
+<body bgcolor = white onload= "main()">
+<div id="log">initial content</div>
+
+<br>
+
+<div id="chooseXO"></div>
+
+<form name = 'test' action ="#">
+
+<br>
+ 	<button onclick="new_game()">New Game</button>
+
+  </form>
+  <br>
+  <div id="chooseXP">
+<table bgcolor=lightgrey border = 1 class = 'xsandos' id='choosem' border=1 bgcolor=white width = 120>
+         <tr>
+         <td class="td"  style ='text-align:center' class='td' onclick="choose('X')">X</font></td>
+         <td class="td"  style ='text-align:center' class='td' onclick="choose('O')">O</font></td>
+         </tr>
+         </table>
+</div>
+<br><br>
+
+<div id="banner"></div>
+<br>
+
+<br>
+
+
+</body>
+</html>
